@@ -6,6 +6,7 @@
 
 [Read the full article - wiki.ayanev.eu, Automated home media server](https://wiki.ayanev.eu/#/do-it-yourself/2023-01-home-media-server/)
 
+https://wiki.servarr.com/
 
 ToC
 - [Automated home media server](#automated-home-media-server)
