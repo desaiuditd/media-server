@@ -148,26 +148,6 @@ services:
     networks:
       - traefik-reverse-proxy_default
 
-  jackett:
-    image: linuxserver/jackett
-    container_name: jackett
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Australia/Sydney
-    volumes:
-      - ./provision/jackett:/config
-    ports:
-      - 9117
-    restart: unless-stopped
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.tracker-proxy.tls=true
-      - traefik.http.routers.tracker-proxy.entrypoints=web-secure
-      - traefik.http.routers.tracker-proxy.rule=(Host(`tracker-proxy.lvh.me`))
-    networks:
-      - traefik-reverse-proxy_default
-
   ombi:
     image: linuxserver/ombi
     container_name: ombi

@@ -18,7 +18,6 @@ ToC
     - [Heimdall](#heimdall)
     - [qBittorrent](#qbittorrent)
     - [Prowlarr](#prowlarr)
-    - [Jacket](#jacket)
     - [Radarr](#radarr)
     - [Sonarr](#sonarr)
     - [Lidarr](#lidarr)
@@ -37,20 +36,20 @@ These are just a few examples, and the specific solution that is best for you wi
 1. The user discovers a new movie, TV show, or music album that they would like to watch/listen to.
 2. The user opens the Ombi web interface and requests the movie, TV show, or music album to be added to the library.
 3. Ombi sends the request to the appropriate service (Radarr, Sonarr, or Lidarr) depending on the type of media requested.
-4. The service (Radarr, Sonarr, or Lidarr) will automatically search for the movie, music, or series on the internet using the configured indexers and torrent trackers (via Jackett/Prowlarr).<br>
+4. The service (Radarr, Sonarr, or Lidarr) will automatically search for the movie, music, or series on the internet using the configured indexers and torrent trackers (via Prowlarr).<br>
    Once the requested media is found, Radarr, Sonarr, or Lidarr will send a command to qbittorrent to download the file.
-1. qBittorrent downloads the media file from the internet and places it in the 'Media' folder.<br>
+5. qBittorrent downloads the media file from the internet and places it in the 'Media' folder.<br>
    Once the download is complete, file will be move to the appropriate folder, where it will be picked up by Plex and added to the library.
-2. Bazarr is connected to content managers and periodicaly check for new content is added.<br>
+6. Bazarr is connected to content managers and periodicaly check for new content is added.<br>
    Automatically downloads subtitles for the media file and places them in the same folder as the media file.
-3. The media file and its subtitles are now available in the Plex library and can be streamed by the user.<br>
+7. The media file and its subtitles are now available in the Plex library and can be streamed by the user.<br>
    The user can now watch the movie, music, or series and enjoy it with subtitles.
-4. The user can access the media file through the Plex app on their device of choice and begin enjoying the content.
+8. The user can access the media file through the Plex app on their device of choice and begin enjoying the content.
   
 The user can repeat this process to add new movies, music, or series to their watchlist (Could request from Plex, Ombi, sync IMDB list etc..) and enjoy them on their media server.
 
 As you can see, the Ombi service acts as the main interface for users to request new media to be added to the library.<br>
-Radarr, Sonarr, and Lidarr with the help of Jackett/Prowlarr work together to automate the process of finding and downloading new media files, while qBittorrent handles the actual downloading of the files.
+Radarr, Sonarr, and Lidarr with the help of Prowlarr work together to automate the process of finding and downloading new media files, while qBittorrent handles the actual downloading of the files.
 And finally, Bazarr service will take care of downloading subtitles.
 
 ## Architecture 
@@ -64,7 +63,7 @@ An architecture point of view
 <br>
 
 Plex is a great choice for a media server and has many additional features that can enhance your media streaming experience.
-In combination with other services such as [Radarr](https://radarr.video/), [Sonarr](https://sonarr.tv/), [Lidarr](https://lidarr.audio/), [qbittorrent](https://hub.docker.com/r/linuxserver/qbittorrent), [jackett](https://github.com/Jackett/Jackett) and [Ombi](https://ombi.io/) it makes user experience in whole new level.
+In combination with other services such as [Radarr](https://radarr.video/), [Sonarr](https://sonarr.tv/), [Lidarr](https://lidarr.audio/), [qbittorrent](https://hub.docker.com/r/linuxserver/qbittorrent) and [Ombi](https://ombi.io/) it makes user experience in whole new level.
 
 Here's a brief explanation of each services and the and the relationships between:
 
@@ -74,12 +73,12 @@ Here's a brief explanation of each services and the and the relationships betwee
   - It is the main service that you will use to view your media files.
 - **Sonarr**<br>
   Which is a TV show manager. 
-  - Sonarr is a TV show management service that can automatically download new TV shows and manage your TV show library. It can be integrated with jackett, to allow you to use many torrent trackers that are not available in the default installation and it can be integrated with Filebot to download subtitles for your media files.
+  - Sonarr is a TV show management service that can automatically download new TV shows and manage your TV show library.
   - It allows you to search, download, and organize your TV shows
   - Automates the process of downloading new TV shows and managing your TV show library.
 - **Radarr**<br>
   A movie manager. 
-  - Radarr is a movie management service that is similar to Sonarr, but for movies. It can automatically download new movies and manage your movie library. It's integrated with jackett, to allow you to use many torrent trackers that are not available in the default installation, and it can be integrated with Filebot to download subtitles for your media files.
+  - Radarr is a movie management service that is similar to Sonarr, but for movies. It can automatically download new movies and manage your movie library.
   - It allows you to search, download, and organize your movies.
   - Automates the process of downloading new movies and managing your movie library.
   
@@ -94,12 +93,8 @@ Here's a brief explanation of each services and the and the relationships betwee
   They can also set up different priorities for the indexers, so Radarr will try to download the movie from the highest priority indexer first and then move on to the next one if it doesn't find the movie.
 - **Lidarr**<br>
   Music collection manager.
-  - Lidarr is a music management service that is similar to Sonarr, but for music. It can automatically download new music releases and manage your music library. It's integrated with jackett and qbittorrent, to allow you to use many torrent trackers and download client that are not available in the default installation.
+  - Lidarr is a music management service that is similar to Sonarr, but for music. It can automatically download new music releases and manage your music library.
   - Automates the process of downloading new music and managing your music library.
-- **Jackett/Prowlarr**<br>
-  Which is a proxy server for indexers.
-  - Jackett is an essential tool that allows you to use many torrent trackers with Sonarr, Radarr and Lidarr that are not available in the default installation.
-  - It allows you to use many more indexers that are not directly compatible with apps like Radarr.<br>
 
   Please keep in mind that the use of private trackers is at your own risk, and it's against the terms of service of many of these sites, also it's illegal in some countries, you should check your country laws and regulations before using them.
 - **qBittorrent**<br> 
@@ -121,7 +116,7 @@ Here's a brief explanation of each services and the and the relationships betwee
   - Nice to have single point to access them all
 
 The services Radarr, Sonarr, and Lidarr, work together to automate the process of downloading new movies, TV shows, and music releases and managing your movie, TV show and music library.<br>
-These services use the power of Jackett/Prowlarr to allow you to use many torrent trackers that are not available in the default installation, and they are all connected with qbittorrent to automatically download the files, when the requested medias are available.
+These services use the power of Prowlarr to allow you to use many torrent trackers that are not available in the default installation, and they are all connected with qbittorrent to automatically download the files, when the requested medias are available.
 
 Radarr and Sonarr are both media management software for movies and TV shows, respectively.
 Both of them are similar in many aspects, but there are some key differences between them:
@@ -132,19 +127,19 @@ Both of them are similar in many aspects, but there are some key differences bet
 
 In summary, Radarr and Sonarr are both powerful media management software, and they can be used together to create a comprehensive media server, but they are specialized for different types of content and have some unique features.
 
-Jackett/Prowlarr is an API service that allows you to search for content on various torrent sites.<br>
-These services (Radarr, Sonarr and Lidarr) can use Jackett to search for content on the torrent sites.<br>
+Prowlarr is an API service that allows you to search for content on various torrent sites.<br>
+These services (Radarr, Sonarr and Lidarr) can use Prowlarr to search for content on the torrent sites.<br>
 Once they find the content they will download it via qBittorrent or other torrent clients (such as Transmission).<br>
-Jackett/Prowlarr is a tool that allows apps to communicate with multiple indexers at once and is the glue between your apps and the indexers.<br>
+Prowlarr is a tool that allows apps to communicate with multiple indexers at once and is the glue between your apps and the indexers.<br>
 It acts as a proxy between your apps and the indexers, so you don't have to configure each app individually.<br>
 
-What are indexers in term of Radarr, Sonarr, Lidarr and Jackett/Prowlarr?<br>
-Indexers are servers that provide information about available media files, such as movies and TV shows, to applications like Radarr, Sonarr, and Jackett. These applications use the information provided by the indexers to search for and download media files from the internet.<br>
-In the context of Radarr, Sonarr and Jackett/Prowlarr, an indexer is a website or service that provides a searchable database of media files.<br>
+What are indexers in term of Radarr, Sonarr, Lidarr and Prowlarr?<br>
+Indexers are servers that provide information about available media files, such as movies and TV shows, to applications like Radarr, Sonarr. These applications use the information provided by the indexers to search for and download media files from the internet.<br>
+In the context of Radarr, Sonarr and Prowlarr, an indexer is a website or service that provides a searchable database of media files.<br>
 These indexers typically have a large collection of movies and TV shows, and can be searched and filtered to find specific content.<br>
 Radarr and Sonarr are two apps that use the information provided by indexers to automatically download movies and TV shows, respectively.<br>
-They both can use Jackett/Prowlarr as a proxy to communicate with multiple indexers at once.<br>
-Overall, indexers provide the data and media files, Jackett/Prowlarr allows those apps to communicate with multiple indexers and Radarr and Sonarr are the apps that use this information to download the media files automatically.
+They both can use Prowlarr as a proxy to communicate with multiple indexers at once.<br>
+Overall, indexers provide the data and media files, Prowlarr allows those apps to communicate with multiple indexers and Radarr and Sonarr are the apps that use this information to download the media files automatically.
 
 Bazarr is integrated with Radarr, Sonarr and Lidarr, which will tell Bazarr to download the subtitles for the files that those services found.<br>
 Bazarr will automatically download subtitles for the movie, music, or series and put them in the same folder as the media file based on preffered language profiles etc...
@@ -282,21 +277,6 @@ services:
     networks:
       - media-network
 
-  jackett:
-    image: linuxserver/jackett
-    container_name: jackett
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Sofia
-    volumes:
-      - ./provision/jackett:/config
-    ports:
-      - "9117:9117"
-    restart: unless-stopped
-    networks:
-      - media-network
-
   ombi:
     image: linuxserver/ombi
     container_name: ombi
@@ -411,7 +391,6 @@ Optional service.
   | Sonarr      | ``http://<your_host_ip>:8989`` |
   | Lidarr      | ``http://<your_host_ip>:8686`` |
   | Prowlarr    | ``http://<your_host_ip>:9696`` |
-  | Jackett     | ``http://<your_host_ip>:9117`` |
   | Bazarr      | ``http://<your_host_ip>:6767`` |
   | Ombi        | ``http://<your_host_ip>:3579`` |
 
@@ -498,15 +477,7 @@ Access the Qbittorrent web interface at ``http://<your_host_ip>:8080`` to set up
 Additional resources:
 - [Prowlarr Quick Start Guide (Official docs)](https://wiki.servarr.com/prowlarr/quick-start-guide)
 - [Prowlarr - A must have for easy automation! (YouTube)](https://www.youtube.com/watch?v=5deZNf2WhwI)
-- [Prowlarr is the Jackett alternative you need (unraid-guides.com)](https://unraid-guides.com/2022/04/29/prowlarr-is-the-jackett-alternative-you-need/)
 - [Connect Prowlarr to Radarr (quickbox.io)](https://quickbox.io/knowledge-base/v2/applications/prowlarr/connect-prowlarr-to-radarr/)
-
-### Jacket
-
-Optional, you may use Prowlarr instead.
-- Access the Jackett Web UI by navigating to ``http://<your_host_ip>:9117`` in your browser.
-- In the Jackett Web UI, click on the "Add indexer" button on the top right corner of the page.
-- You will find a list of available indexers, you can add or configure indexers as you wish.
 
 ### Radarr
 
@@ -524,9 +495,6 @@ Some of the listed configurations are optional, but definitely makes user experi
    Test and Save buttons
 3. Indexers (Optional)<br>
    Nothing to do. Prowlarr should already seeded the indexers.<br>
-   If using Jackett:<br>
-      - In the "Indexers" tab, follow the instructions provided from Jackett page<br>
-      - For the URL input, use the container name ``jackett`` instead of IP or localhost or whatever you copy from the Jackett panel, for example ``http://jackett:9117/api/v2..``, do not forget to press the save button located on top.
 4. Media Management<br>
    Movie Naming<br>
       - In the ``Media Management`` tab, you can configure how Radarr should organize and rename your downloaded movies.
