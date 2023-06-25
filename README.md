@@ -6,8 +6,6 @@
 
 [Read the full article - wiki.ayanev.eu, Automated home media server](https://wiki.ayanev.eu/#/do-it-yourself/2023-01-home-media-server/)
 
-https://wiki.servarr.com/
-
 ToC
 - [Automated home media server](#automated-home-media-server)
   - [The user journey](#the-user-journey)
@@ -16,7 +14,7 @@ ToC
   - [Configurations](#configurations)
     - [Plex](#plex)
     - [Heimdall](#heimdall)
-    - [qBittorrent](#qbittorrent)
+    - [qBitTorrent](#qbittorrent)
     - [Prowlarr](#prowlarr)
     - [Radarr](#radarr)
     - [Sonarr](#sonarr)
@@ -24,7 +22,7 @@ ToC
     - [Bazarr](#bazarr)
     - [Ombi](#ombi)
   - [Author notes](#author-notes)
-  - [Refrances](#refrances)
+  - [References](#references)
 
 There are a variety of options for creating a media server.<br>
 One popular option is to use Plex, which is a free, open-source media server software that can organize and stream your personal media collection.<br>
@@ -40,19 +38,19 @@ These are just a few examples, and the specific solution that is best for you wi
    Once the requested media is found, Radarr, Sonarr, or Lidarr will send a command to qbittorrent to download the file.
 5. qBittorrent downloads the media file from the internet and places it in the 'Media' folder.<br>
    Once the download is complete, file will be move to the appropriate folder, where it will be picked up by Plex and added to the library.
-6. Bazarr is connected to content managers and periodicaly check for new content is added.<br>
+6. Bazarr is connected to content managers and periodically check for new content is added.<br>
    Automatically downloads subtitles for the media file and places them in the same folder as the media file.
 7. The media file and its subtitles are now available in the Plex library and can be streamed by the user.<br>
    The user can now watch the movie, music, or series and enjoy it with subtitles.
 8. The user can access the media file through the Plex app on their device of choice and begin enjoying the content.
-  
+
 The user can repeat this process to add new movies, music, or series to their watchlist (Could request from Plex, Ombi, sync IMDB list etc..) and enjoy them on their media server.
 
 As you can see, the Ombi service acts as the main interface for users to request new media to be added to the library.<br>
 Radarr, Sonarr, and Lidarr with the help of Prowlarr work together to automate the process of finding and downloading new media files, while qBittorrent handles the actual downloading of the files.
 And finally, Bazarr service will take care of downloading subtitles.
 
-## Architecture 
+## Architecture
 
 An architecture point of view
 
@@ -69,27 +67,27 @@ Here's a brief explanation of each services and the and the relationships betwee
 
 - **Plex Media Server**<br>
   It's the core of the media server.
-  - Plex is a media center software that allows you to organize and stream your media files, such as movies, TV shows, music and photos, to various devices. 
+  - Plex is a media center software that allows you to organize and stream your media files, such as movies, TV shows, music and photos, to various devices.
   - It is the main service that you will use to view your media files.
 - **Sonarr**<br>
-  Which is a TV show manager. 
+  Which is a TV show manager.
   - Sonarr is a TV show management service that can automatically download new TV shows and manage your TV show library.
   - It allows you to search, download, and organize your TV shows
   - Automates the process of downloading new TV shows and managing your TV show library.
 - **Radarr**<br>
-  A movie manager. 
+  A movie manager.
   - Radarr is a movie management service that is similar to Sonarr, but for movies. It can automatically download new movies and manage your movie library.
   - It allows you to search, download, and organize your movies.
   - Automates the process of downloading new movies and managing your movie library.
-  
+
   Radarr can be configured to download movies from a variety of sources. <br>
   These sources are called indexers and they are websites that index torrent files.
   Radarr can be configured to connect to multiple indexers and it uses them to search for torrent files of the movies in the user's watchlist.
 
-  When Radarr finds a movie that is in the user's watchlist, it will download the torrent file and pass it to a download client. 
+  When Radarr finds a movie that is in the user's watchlist, it will download the torrent file and pass it to a download client.
   This is software that is responsible for downloading the actual movie file from the peers in the torrent network.
 
-  The user can configure Radarr to use one or multiple indexers and one download client. 
+  The user can configure Radarr to use one or multiple indexers and one download client.
   They can also set up different priorities for the indexers, so Radarr will try to download the movie from the highest priority indexer first and then move on to the next one if it doesn't find the movie.
 - **Lidarr**<br>
   Music collection manager.
@@ -97,12 +95,12 @@ Here's a brief explanation of each services and the and the relationships betwee
   - Automates the process of downloading new music and managing your music library.
 
   Please keep in mind that the use of private trackers is at your own risk, and it's against the terms of service of many of these sites, also it's illegal in some countries, you should check your country laws and regulations before using them.
-- **qBittorrent**<br> 
+- **qBittorrent**<br>
   Download client.
   - Automates the process of downloading files from the internet.
   - It allows you to download movies from the indexers.
   - It's integrated with Radarr, Sonarr etc.., which will tell qbittorrent to download the files that those services found.
-- **Ombi**<br> 
+- **Ombi**<br>
   Content request application.
   - Ombi is a web-based interface that allows users to request new movies, TV shows, and music to be added to the library.
   - The users can use Ombi to request new content, and the requests are then passed to Radarr, Sonarr, or Lidarr, which will search for the requested files and download them.
@@ -111,7 +109,7 @@ Here's a brief explanation of each services and the and the relationships betwee
   - Manages and downloads subtitles based on your requirements.
 - **Heimdall**<br>
   Dashboard/home page for all the applications.<br>
-  Heimdall is an optional service, you may remove it from the stack, but I prefer having a kind of entry point/dashboard/home page for all idea to throwthe apps, anyway the process as described for requesting and download content once setup and runing is fully automated, but its always a good idea to Throw an eye and nobady likes to rember all the IPs and ports, unless you have a DNS server runing (but that is part for another topic)
+  Heimdall is an optional service, you may remove it from the stack, but I prefer having a kind of entry point/dashboard/home page for all idea to throw the apps, anyway the process as described for requesting and download content once setup and running is fully automated, but its always a good idea to Throw an eye and nobody likes to remember all the IPs and ports, unless you have a DNS server running (but that is part for another topic)
   - Improve the maintainability of all the services, no need to remember which app served on what port etc..
   - Nice to have single point to access them all
 
@@ -142,13 +140,13 @@ They both can use Prowlarr as a proxy to communicate with multiple indexers at o
 Overall, indexers provide the data and media files, Prowlarr allows those apps to communicate with multiple indexers and Radarr and Sonarr are the apps that use this information to download the media files automatically.
 
 Bazarr is integrated with Radarr, Sonarr and Lidarr, which will tell Bazarr to download the subtitles for the files that those services found.<br>
-Bazarr will automatically download subtitles for the movie, music, or series and put them in the same folder as the media file based on preffered language profiles etc...
+Bazarr will automatically download subtitles for the movie, music, or series and put them in the same folder as the media file based on preferred language profiles etc...
 
 ## Deployment
 
 Setting up a media server can be a bit complex, but with the right tools and some planning, it can provide a powerful and convenient way to enjoy your media.<br>
 Using Docker Compose to set up a media server is a great way to simplify the process and make it easy to manage your server. Docker Compose is a tool that allows you to define and run multiple containers as a single service.<br>
-The main motivation behind the compose file is to have a centralized place where you can manage all the services for the media center. 
+The main motivation behind the compose file is to have a centralized place where you can manage all the services for the media center.
 
 ``docker-compose.yml``
 ```yaml
@@ -323,9 +321,11 @@ Docker compose file brief walk through
 
 Here is a summary of the steps went through to create the media server:
 
-1. Create a Docker Compose file: Create a new file called ``docker-compose.yml`` and copy the example compose file I provided you with into it.
+1. We'll use Traefik as reverse proxy for the media server, so that it's easy to access all the different services. Follow the steps to start reverse proxy on local from [README.md](https://github.com/desaiuditd/traefik-reverse-proxy#local) file. Setup the certs and run `make up` to start the reverse proxy.
 
-2. Folder structure: Create a folder called ``content`` and ``provision`` in the same directory as the compose file, this folder will be used to store your media files and persist service configurations.
+2. Create a Docker Compose file: Create a new file called ``docker-compose.yml`` and copy the example compose file I provided you with into it.
+
+3. Folder structure: Create a folder called ``content`` and ``provision`` in the same directory as the compose file, this folder will be used to store your media files and persist service configurations.
   An example of media folders structure (in terms of the compose above), note that you will need to create the folders on the filesystem:
     ```bash
     .
@@ -367,9 +367,9 @@ And remember that configuring a media server can be a complex task and may requi
 
 Since Plex is the main service that will be used to view your media files, it's a good idea to set it up first. This includes creating your Plex account, setting up your media library, and configuring any additional settings you may need.
 
-- Once your Plex container is running, you can access the Plex Web UI by navigating to ``http://<your_host_ip>:32400/web`` in your browser. 
-- You will be prompted to sign in or create a new account. 
-- After signing in, you'll be prompted to add your media folders. 
+- Once your Plex container is running, you can access the Plex Web UI by navigating to ``http://<your_host_ip>:32400/web`` in your browser.
+- You will be prompted to sign in or create a new account.
+- After signing in, you'll be prompted to add your media folders.
 - Once you've added your media, Plex will begin analyzing your media files, and then it will be ready to use.
 - Enable ``Scan my library automatically`` and ``Run a partial scan when changes are detected`` from ``Settings``>``Library`` tab/
 
@@ -386,7 +386,7 @@ Optional service.
   | Title | URL |
   |:------|:----|
   | Plex        | ``http://<your_host_ip>:32400/web`` |
-  | qBittorrent | ``http://<your_host_ip>:8080`` |
+  | qBitTorrent | ``http://<your_host_ip>:8080`` |
   | Radarr      | ``http://<your_host_ip>:7878`` |
   | Sonarr      | ``http://<your_host_ip>:8989`` |
   | Lidarr      | ``http://<your_host_ip>:8686`` |
@@ -396,20 +396,20 @@ Optional service.
 
 - Last, you may want to change home page background from settings menu
 
-### qBittorrent
+### qBitTorrent
 
-Access the Qbittorrent web interface at ``http://<your_host_ip>:8080`` to set up and configure your download client.
+Access the qBitTorrent web interface at ``http://<your_host_ip>:8080`` to set up and configure your download client.
 
 1. Change default credentials<br>
    The default credentials for the qBittorrent service provided in the LinuxServer's image are as follows:
      - Username: admin
      - Password: adminadmin<br>
-  
+
    It's important to note that these are the default credentials and it's highly recommended that you change them as soon as possible. You can change the credentials by going to the qBittorrent Web UI, and then navigating to the ``Settings``>``WebUI`` tab, and then change the username and password fields.<br>
    It's also a good practice to use unique and strong passwords for all your services and update them regularly to ensure the security of your media server.
 
-2. Downloads options (used for category-based save paths)   
-   When logged in click he "gear icon" to open ``Options``.   
+2. Downloads options (used for category-based save paths)
+   When logged in click he "gear icon" to open ``Options``.
    Under ``Downloads tab``, ``Saving Management section`` configure as follows:
     - ``Default Torrent Management Mode``: ``Automatic`` (This is required for category-based save paths to work)
     - ``When Torrent Category changed``: ``Relocate torrent``
@@ -420,20 +420,20 @@ Access the Qbittorrent web interface at ``http://<your_host_ip>:8080`` to set up
 
 3. Seed Limits (optional)<br>
    Once again go to ``Options`` and under ``BitTorrent tab``, ``Seeding Limits``section configure your preference, more about the options described here: [Seeding limits demystified in qBittorrent](https://scribbleghost.net/2022/04/08/seeding-limits-demystified-in-qbittorrent/).<br>
-   For example, ``When seeding time reaches 1440min (24h)`` and ``When ratio reaches 1`` then ``Pause torrent`` (Dont worry when donwload is complate Radarr will copy files to another directory).<br>
+   For example, ``When seeding time reaches 1440min (24h)`` and ``When ratio reaches 1`` then ``Pause torrent`` (Don't worry when download is complete Radarr will copy files to another directory).<br>
    Set it to pause/stop when share ratio is met. In Sonarr/Radarr, enable Complete Download Handler and Failed Download Handler and enable Remove on both.<br>
    That way, when torrents are done they'll pause and then Sonarr/Radarr will remove them after they've imported.
 
-1. Categories   
+4. Categories
    - Radarr<br>
      In he WebUI in the left menu expand ``CATEGORIES`` and right click on All, Select ``Add category``.<br>
      In the ``New Category`` windows configure as follows:
        - Category: ``radarr`` (this must correspond to the category that is later configured in radarr)
        - Save path: ``/data/torrents/movies``
-       - Click ``Add``  
+       - Click ``Add``
    - Sonarr<br>
      Repeat the process for Sonarr<br>
-       - Category: ``sonarr``(this must correspond to the category that is later configured in sonarr download client, dafault is sonarr-tv but will use sonarr)
+       - Category: ``sonarr``(this must correspond to the category that is later configured in sonarr download client, default is sonarr-tv but will use sonarr)
        - Save path ``/data/torrents/tv``
    - Lidarr<br>
      Repeat the process
@@ -499,8 +499,8 @@ Some of the listed configurations are optional, but definitely makes user experi
    Movie Naming<br>
       - In the ``Media Management`` tab, you can configure how Radarr should organize and rename your downloaded movies.
       - Enable ``Rename Movies``
-      - Naming pattern I found usefull, for example: ``({Release Year}) {Movie Title} {Quality Full}`` correspond to ``(2010) The Movie Title Bluray-1080p Proper``<br>
-   
+      - Naming pattern I found useful, for example: ``({Release Year}) {Movie Title} {Quality Full}`` correspond to ``(2010) The Movie Title Bluray-1080p Proper``<br>
+
    Enable ``Unmonitor Deleted Movies``<br>
    Root Folders
       - ``/data/media/movies/``
@@ -541,7 +541,7 @@ Sonarr configuration is straight forward, you may follow the guidelines from Rad
    Prowlarr should already seeded the indexers.<br>
 4. Media Management<br>
    Episode Naming<br>
-      - Season Folder Format: ``{Series Year} Season {season}``<br>   
+      - Season Folder Format: ``{Series Year} Season {season}``<br>
    Enable ``Unmonitor Deleted Movies``<br>
    Root Folders
       - ``/data/media/tv/``
@@ -555,7 +555,7 @@ Once you've added your TV shows, Sonarr will begin searching for them, downloadi
 
 ### Lidarr
 
-Web interface available at ``http://<your_host_ip>:8686``<br>  
+Web interface available at ``http://<your_host_ip>:8686``<br>
 Configuration similar to Radarr and Sonarr, check them for reference.
 
 ### Bazarr
@@ -587,7 +587,7 @@ Access the Bazarr web interface by going to ``http://<your-server-ip>:6767`` in 
    - Yavka.net
    - Supersubtitles
 6. Scheduler<br>
-   - You may want to update some of the settigns such as ``Sonarr/Radarr Sync``
+   - You may want to update some of the settings such as ``Sonarr/Radarr Sync``
 
 It's worth noting that the specifics of the setup may vary depending on your specific setup, but the above steps should give you a good starting point.<br>
 You can also refer to the official documentation of Bazarr for more information about the settings and options available.<br>
@@ -637,19 +637,19 @@ More services:
 - [ ] Does plex needs GPU?
 - [ ] VPN
 - [ ] Requestrr is a chatbot used to simplify using services like Sonarr/Radarr/Ombi via the use of chat
-- [ ] AllTube 
+- [ ] AllTube
 - [ ] YT Downloads
 - [ ] Jellyfin
 - [ ] CouchPotato
 - [ ] FreshRSS
-- [ ] Airsonic is a free, web-based media streamer, providing ubiquitous access to your music. 
+- [ ] Airsonic is a free, web-based media streamer, providing ubiquitous access to your music.
 
 Probably not:
-- [ ] LazyLibrarian 
+- [ ] LazyLibrarian
 - [ ] Mylar
 - [ ] Whisparr, Really?
 
-## Refrances
+## References
 
 - [Official servarr wiki - docker-guide](https://wiki.servarr.com/docker-guide)
 - [A minimal configuration step-by-step guide to media automation in UnRAID using Radarr, Sonarr, Prowlarr, Jellyfin, Jellyseerr and qBittorrent](https://flemmingss.com/a-minimal-configuration-step-by-step-guide-to-media-automation-in-unraid-using-radarr-sonarr-prowlarr-jellyfin-jellyseerr-and-qbittorrent/)
