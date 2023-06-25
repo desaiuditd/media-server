@@ -321,7 +321,7 @@ Docker compose file brief walk through
 
 Here is a summary of the steps went through to create the media server:
 
-1. We'll use Traefik as reverse proxy for the media server, so that it's easy to access all the different services. Follow the steps to start reverse proxy on local from [README.md](https://github.com/desaiuditd/traefik-reverse-proxy#local) file. Setup the certs and run `make up` to start the reverse proxy.
+1. We'll use [Traefik as reverse proxy](https://github.com/desaiuditd/traefik-reverse-proxy) for the media server, so that it's easy to access all the different services. Follow the steps to start reverse proxy on local from [README.md](https://github.com/desaiuditd/traefik-reverse-proxy#local) file. Setup the certs and run `make up` to start the reverse proxy.
 
 2. Create a Docker Compose file: Create a new file called ``docker-compose.yml`` and copy the example compose file I provided you with into it.
 
