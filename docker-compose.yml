@@ -142,9 +142,9 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.request-media.tls=true
-      - traefik.http.routers.request-media.entrypoints=web-secure
-      - traefik.http.routers.request-media.rule=(Host(`request-media.lvh.me`))
+      - traefik.http.routers.ombi.tls=true
+      - traefik.http.routers.ombi.entrypoints=web-secure
+      - traefik.http.routers.ombi.rule=(Host(`ombi.lvh.me`))
     networks:
       - traefik-reverse-proxy_default
 
